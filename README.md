@@ -78,8 +78,8 @@ docker run --rm -it -p 5000:5000 webapp_skeleton:0.1 python -m flake8 --max-line
 
 ### 依存ライブラリの追加
 
-1. 手動でインストールしたパッケージ名のみを`requirements.txt`に記載してください。(テストのみで利用するものは`requirements_dev.txt`へ)
-2. `make constraints` を実行
+1. 手動でインストールしたパッケージ名のみを`requirements.txt`に記載。(テストのみで利用するものは`requirements_dev.txt`へ)
+2. `make lockfile` を実行(全てのライブラリアップデートする場合は `make update-dependencies` を実行)
 
 ## ディレクトリ構成
 
@@ -89,9 +89,9 @@ $ tree .
 ├── Dockerfile
 ├── Makefile
 ├── README.md
-├── constraints.txt
 ├── keys
 │   └── credentials.json
+├── requirements.lock
 ├── requirements.txt
 ├── requirements_dev.txt
 └── src

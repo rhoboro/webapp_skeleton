@@ -2,9 +2,13 @@ NAME=webapp_skeleton
 TAG=0.1
 MARK=""
 
-constraints:
+update-dependencies:
+	docker build --build-arg UPDATE_LOCK=1 --no-cache -t ${NAME}:${TAG} .
+	docker run --rm -it -p 5000:5000 ${NAME}:${TAG} pip freeze > requirements.lock
+
+lockfile:
 	docker build -t ${NAME}:${TAG} .
-	docker run --rm -it -p 5000:5000 ${NAME}:${TAG} pip freeze > constraints.txt
+	docker run --rm -it -p 5000:5000 ${NAME}:${TAG} pip freeze > requirements.lock
 
 dev:
 	docker build -t ${NAME}:${TAG} .

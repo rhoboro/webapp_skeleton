@@ -3,8 +3,10 @@ WORKDIR /usr/src/app
 ARG GOOGLE_CREDENTIALS=credentials.json
 COPY keys/ ./
 ENV GOOGLE_APPLICATION_CREDENTIALS /usr/src/app/$GOOGLE_CREDENTIALS
-COPY requirements.txt requirements_dev.txt constraints.txt ./
-RUN pip install --no-cache-dir -r requirements.txt -c constraints.txt
+COPY requirements.txt requirements_dev.txt requirements.lock ./
+ARG UPDATE_LOCK
+RUN if [ -z "$UPDATE_LOCK" ]; then pip install --no-cache-dir -r requirements.lock; fi
+RUN pip install --no-cache-dir -r requirements.txt
 ARG DEPENDENCIES
 RUN if [ ! -z "$DEPENDENCIES" ]; then pip install -r $DEPENDENCIES; fi
 COPY src/ ./
