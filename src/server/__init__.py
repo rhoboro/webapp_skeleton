@@ -2,7 +2,7 @@ from flask import Flask
 from . import api
 
 app = Flask(__name__, instance_relative_config=True)
-app.config.from_object('config')
+app.config.from_object('config.default')
 app.config.from_envvar('APP_CONFIG_FILE')
 
 blueprints = [api]
